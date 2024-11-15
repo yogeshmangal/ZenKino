@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -52,5 +53,17 @@ public class UserControllerTests {
         assertEquals("Harsh", result.get(1).getName());
     }
 
-    //TODO: Write the unit tests for all the other APIs.
+    @Test
+    public void test_getUserById() {
+        User user1 = new User();
+        user1.setId(1L);
+        user1.setName("Yogesh");
+        user1.setEmail("mangalyogesh.22@gmail.com");
+        when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
+        Optional<User> user = userController.getUserById(user1.getId());
+        assertNotNull(user);
+        assertEquals(user1.getId(), user.get().getId());
+        assertEquals(user1.getName(), user.get().getName());
+        assertEquals(user1.getEmail(), user.get().getEmail());
+    }
 }

@@ -1,6 +1,8 @@
 package com.product.zenkino.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.product.zenkino.utils.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +28,7 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "phone_number", nullable = false)
@@ -47,6 +50,7 @@ public class User {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Order> orders;
 
     @Column(name = "profile_image_url")

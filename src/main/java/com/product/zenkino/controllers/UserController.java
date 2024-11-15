@@ -40,7 +40,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable Long id) {
         Optional<User> currentUserOptional = userRepository.findById(id);
         if (currentUserOptional.isEmpty())
@@ -51,7 +51,7 @@ public class UserController {
         return userRepository.save(currentUser);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty())
